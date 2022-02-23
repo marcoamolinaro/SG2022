@@ -25,6 +25,7 @@ public class ResultadoService {
 		return page;
 	}
 	
+	
 	@Transactional(readOnly = true)
 	public ResultadoDTO findById(Long id) {
 		Resultado result = resultadoRepository.findById(id).get();
@@ -41,6 +42,22 @@ public class ResultadoService {
 		ResultadoDTO dto = new ResultadoDTO(result);
 		
 		return dto;
+	}
+	
+	@SuppressWarnings("null")
+	public ResultadoDTO save(ResultadoDTO dto) {
+		
+		Resultado resultado = resultadoRepository.findByNumero(dto.getNumero());
+		
+		if (resultado == null) {
+			Resultado resultadoNew = new Resultado();
+			resultadoNew.setNumero(dto.getNumero());
+			resultadoNew.setDezenas(dto.getDezenas());
+			
+			resultado = resultadoRepository.saveAndFlush(resultadoNew);			
+		}
+		
+		return new ResultadoDTO(resultado);
 	}
 
 }

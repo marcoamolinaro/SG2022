@@ -6,4 +6,5 @@ import net.com.scm.sg2022.entities.Resultado;
 
 public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 
+	Resultado findByNumero(Long numero);
 }
